@@ -11,39 +11,42 @@ datasource db {
 }
 
 model Patient {
-  id        Int      @id @default(autoincrement())
-  username  String
-  password  String
-  email     String  @unique
-  phone     String
-  address   String
-  orders    Order[]
-  statements Statement[]
-  payments   Payment[]
+  id          Int   @id @default(autoincrement())
+  username    String
+  password    String
+  email       String  @unique
+  phone       String
+  address     String
+  orders      Order[]
+  statements  Statement[]
+  payments    Payment[]
 }
 
 model Medication {
-  id                          Int      @id @default(autoincrement())
-  name                        String
-  description                 String?
-  quantity                    Int
-  priceInCents                Float
-  filePath                    String
-  orders                      Order[]
-  isAvailableForPurchase      Boolean   @default(true)
-  createdAt                   DateTime  @default(now())
-  updatedAt                   DateTime  @updatedAt
+  id                      Int      @id @default(autoincrement())
+  name                    String
+  description             String?
+  quantity                Int
+  priceInCents            Float
+  filePath                String
+  imagePath               String
+  orders                  Order[]
+  isAvailableForPurchase  Boolean   @default(true)
+  createdAt               DateTime  @default(now())
+  updatedAt               DateTime  @updatedAt
 }
 
 model Order {
   id             Int       @id @default(autoincrement())
-  patient        Patient   @relation(fields: [patientId], references: [id])
+  patient        Patient   @relation(fields: [patientId], references: [id], onDelete: Cascade)
   patientId      Int
-  medications    Medication[]
   quantity       Int
   orderStatus    String
   paymentStatus  Boolean
   payments       Payment[]
+  medications    Medication[]
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 }
 
 model Statement {
@@ -59,15 +62,15 @@ model Statement {
 
 
 model Payment {
-  id               Int      @id @default(autoincrement())
-  patient          Patient  @relation(fields: [patientId], references: [id])
-  patientId        Int
-  order            Order    @relation(fields: [orderId], references: [id])
-  orderId          Int
+  id                Int      @id @default(autoincrement())
+  patient           Patient  @relation(fields: [patientId], references: [id])
+  patientId         Int
+  order             Order    @relation(fields: [orderId], references: [id])
+  orderId           Int
   transactionAmount Float
-  paymentMethod    String
-  paymentStatus    String   // Could be 'pending' or 'completed'
-  paymentDateTime  DateTime @default(now())
+  paymentMethod     String   //e.g. cash, credit card, M-pesa
+  paymentStatus     String   // Could be 'pending' or 'completed'
+  paymentDateTime   DateTime @default(now())
 }
 
 model LegacyDatabaseIntegration {
@@ -76,3 +79,4 @@ model LegacyDatabaseIntegration {
   status        String   // Could be 'success' or 'failure'
   errorMessage  String?  // Optional field for storing error messages
 }
+
