@@ -19,6 +19,7 @@ model Patient {
   address   String
   orders    Order[]
   statements Statement[]
+  payments   Payment[]
 }
 
 model Medication {
@@ -26,7 +27,7 @@ model Medication {
   name                        String
   description                 String?
   quantity                    Int
-  priceInCents                Int
+  priceInCents                Float
   filePath                    String
   orders                      Order[]
   isAvailableForPurchase      Boolean   @default(true)
@@ -42,6 +43,7 @@ model Order {
   quantity       Int
   orderStatus    String
   paymentStatus  Boolean
+  payments       Payment[]
 }
 
 model Statement {
@@ -50,6 +52,27 @@ model Statement {
   patientId         Int
   transactionType   String    // Could be 'online order' or 'face-to-face sale'
   transactionId     Int       // Assuming this is the ID of the order or sales receipt
-  transactionAmount Int    
+  transactionAmount Float    
   dateTime          DateTime  @default(now())
+}
+
+
+
+model Payment {
+  id               Int      @id @default(autoincrement())
+  patient          Patient  @relation(fields: [patientId], references: [id])
+  patientId        Int
+  order            Order    @relation(fields: [orderId], references: [id])
+  orderId          Int
+  transactionAmount Float
+  paymentMethod    String
+  paymentStatus    String   // Could be 'pending' or 'completed'
+  paymentDateTime  DateTime @default(now())
+}
+
+model LegacyDatabaseIntegration {
+  id            Int      @id @default(autoincrement())
+  timestamp     DateTime @default(now())
+  status        String   // Could be 'success' or 'failure'
+  errorMessage  String?  // Optional field for storing error messages
 }
