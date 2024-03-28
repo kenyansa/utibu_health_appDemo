@@ -18,6 +18,7 @@ model Patient {
   phone     String
   address   String
   orders    Order[]
+  statements Statement[]
 }
 
 model Medication {
@@ -41,4 +42,14 @@ model Order {
   quantity       Int
   orderStatus    String
   paymentStatus  Boolean
+}
+
+model Statement {
+  id                Int       @id @default(autoincrement())
+  patient           Patient   @relation(fields: [patientId], references: [id])
+  patientId         Int
+  transactionType   String    // Could be 'online order' or 'face-to-face sale'
+  transactionId     Int       // Assuming this is the ID of the order or sales receipt
+  transactionAmount Int    
+  dateTime          DateTime  @default(now())
 }
