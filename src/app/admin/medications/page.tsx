@@ -50,7 +50,7 @@ async function MedicationsTable(){
         },
         orderBy: {name: "asc"},
     })
-    if (medications.length === 0) return <p>No Medications found on Utibu Health</p>
+    if (medications.length === 0) return <p>No meds found at Utibu Health</p>
 
     return (
         <Table>
