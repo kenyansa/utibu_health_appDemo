@@ -11,10 +11,17 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import Link from "next/link";
-import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow,} from "@/components/ui/table";
+import {
+    Table, 
+    TableBody, 
+    TableCell, 
+    TableHead, 
+    TableHeader, 
+    TableRow,
+} from "@/components/ui/table";
 import {
     ActiveToggleDropdownItem,
-  DeleteDropdownItem,
+    DeleteDropdownItem,
 } from "./_components/MedicationActions";
 
 export default function AdminMedicationsPage(){
@@ -26,6 +33,7 @@ export default function AdminMedicationsPage(){
             <Link href="/admin/medications/new">Add Medication</Link>
         </Button>
     </div>
+    <MedicationsTable />
     </>
     )
 }
@@ -75,7 +83,7 @@ async function MedicationsTable(){
               )}
             </TableCell>
             <TableCell>{medication.name}</TableCell>
-            <TableCell>{formatCurrency(medication.priceInShillings / 100)}</TableCell>
+            <TableCell>{formatCurrency(medication.priceInShillings)}</TableCell>
             <TableCell>{formatNumber(medication._count.orders)}</TableCell>
             <TableCell>
               <DropdownMenu>

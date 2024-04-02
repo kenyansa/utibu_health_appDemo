@@ -14,12 +14,15 @@ import Image from "next/image"
 
 export function MedicationForm({ medication }: { medication?: Medication | null }){
     const [error, action] = useFormState(
-        medication == null ? addMedication : updateMedication.bind(null, medication.id.toString()),  //By calling toString() on medication.id, you ensure that it's always treated as a string
+        medication == null ? addMedication : updateMedication.bind(null, medication.id.toString()),  
         {}
       )
       const [priceInShillings, setPriceInShillings] = useState<number | undefined>(
         medication?.priceInShillings
       )
+      const [quantity, setQuantity] = useState<number | undefined>(
+        medication?.quantity
+    )
 
 
     return <form action={action} className="space-y-8">
@@ -64,6 +67,21 @@ export function MedicationForm({ medication }: { medication?: Medication | null 
           <div className="text-destructive">{error.description}</div>
         )}
       </div>
+      <div className="space-y-2">
+            <Label htmlFor="quantity">Quantity</Label>
+            <Input
+                type="number"
+                id="quantity"
+                name="quantity"
+                required
+                value={quantity}
+                onChange={e => setQuantity(Number(e.target.value) || undefined)}
+            />
+            {/* {error.quantity && (
+                <div className="text-destructive">{error.quantity}</div>
+            )} */}
+        </div>
+
       <div className="space-y-2">
         <Label htmlFor="file">File</Label>
         <Input type="file" id="file" name="file" required={medication == null} />
