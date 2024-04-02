@@ -27,7 +27,7 @@ model Medication {
   name                    String
   description             String?
   quantity                Int
-  priceInCents            Float
+  priceInShillings        Float
   filePath                String
   imagePath               String
   orders                  Order[]
@@ -42,6 +42,7 @@ model Order {
   patientId      Int
   quantity       Int
   orderStatus    String
+  pricePaidInShillings Int
   paymentStatus  Boolean
   payments       Payment[]
   medications    Medication[]
