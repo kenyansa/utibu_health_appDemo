@@ -14,10 +14,10 @@ import Image from "next/image"
 
 export function MedicationForm({ medication }: { medication?: Medication | null }){
     const [error, action] = useFormState(
-        medication == null ? addMedication : updateMedication.bind(null, medication.id),
+        medication == null ? addMedication : updateMedication.bind(null, medication.id.toString()),  //By calling toString() on medication.id, you ensure that it's always treated as a string
         {}
       )
-      const [priceInCents, setPriceInShillings] = useState<number | undefined>(
+      const [priceInShillings, setPriceInShillings] = useState<number | undefined>(
         medication?.priceInShillings
       )
 
@@ -58,7 +58,7 @@ export function MedicationForm({ medication }: { medication?: Medication | null 
           id="description"
           name="description"
           required
-          defaultValue={medication?.description}
+          defaultValue={medication?.description ?? ""}  //The ?? operator checks if medication?.description is null or undefined. If it is, it will use an empty string '' as the default value for the textarea.
         />
         {error.description && (
           <div className="text-destructive">{error.description}</div>

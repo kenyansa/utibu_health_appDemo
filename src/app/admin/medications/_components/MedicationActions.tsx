@@ -3,8 +3,8 @@
 import { DropdownMenuItem } from "@/components/ui/dropdown-menu"
 import { useTransition } from "react"
 import {
-  deleteProduct,
-  toggleProductAvailability,
+  deleteMedication,
+  toggleMedicationAvailability,
 } from "../../_actions/medications"
 import { useRouter } from "next/navigation"
 
@@ -12,7 +12,7 @@ export function ActiveToggleDropdownItem({
   id,
   isAvailableForPurchase,
 }: {
-  id: string
+  id: number
   isAvailableForPurchase: boolean
 }) {
   const [isPending, startTransition] = useTransition()
@@ -36,7 +36,7 @@ export function DeleteDropdownItem({
   id,
   disabled,
 }: {
-  id: string
+  id: number
   disabled: boolean
 }) {
   const [isPending, startTransition] = useTransition()

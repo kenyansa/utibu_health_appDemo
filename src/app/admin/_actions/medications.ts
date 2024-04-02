@@ -26,6 +26,7 @@ export async function addMedication(prevState: unknown, formData: FormData) {
   }
 
   const data = result.data
+  const newData = { ...data, quantity: 1 }; //for quantity field
 
   await fs.mkdir("medications", { recursive: true })
   const filePath = `medications/${crypto.randomUUID()}-${data.file.name}`
@@ -46,6 +47,7 @@ export async function addMedication(prevState: unknown, formData: FormData) {
       priceInShillings: data.priceInShillings,
       filePath,
       imagePath,
+      quantity: newData.quantity,
     },
   })
 
@@ -71,9 +73,9 @@ export async function updateMedication(
   }
 
   const data = result.data
-  const product = await db.medication.findUnique({ where: { id } })
+  const medication = await db.medication.findUnique({ where: { id } })
 
-  if (product == null) return notFound()
+  if (medication == null) return notFound()
 
   let filePath = medication.filePath
   if (data.file != null && data.file.size > 0) {
@@ -120,7 +122,7 @@ export async function toggleMedicationAvailability(
 }
 
 export async function deleteMedication(id: number) {
-  const product = await db.medication.delete({ where: { id } })
+  const medication = await db.medication.delete({ where: { id } })
 
   if (medication == null) return notFound()
 
