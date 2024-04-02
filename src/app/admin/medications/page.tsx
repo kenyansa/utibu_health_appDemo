@@ -44,12 +44,13 @@ async function MedicationsTable(){
             id: true,
             name: true,
             priceInShillings: true,
+            quantity: true,
             isAvailableForPurchase: true,
             _count: { select: { orders: true } },
         },
         orderBy: {name: "asc"},
     })
-    if (medications.length === 0) return <p>No Medications found</p>
+    if (medications.length === 0) return <p>No Medications found on Utibu Health</p>
 
     return (
         <Table>

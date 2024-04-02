@@ -63,7 +63,7 @@ const editSchema = addSchema.extend({
 })
 
 export async function updateMedication(
-  id: string,
+  id: number,
   prevState: unknown,
   formData: FormData
 ) {

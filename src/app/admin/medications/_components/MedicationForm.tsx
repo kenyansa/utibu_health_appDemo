@@ -14,7 +14,7 @@ import Image from "next/image"
 
 export function MedicationForm({ medication }: { medication?: Medication | null }){
     const [error, action] = useFormState(
-        medication == null ? addMedication : updateMedication.bind(null, medication.id.toString()),  
+        medication == null ? addMedication : updateMedication.bind(null, medication.id),  
         {}
       )
       const [priceInShillings, setPriceInShillings] = useState<number | undefined>(
