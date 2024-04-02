@@ -12,6 +12,24 @@ return  (
                 <p>Text</p>
             </CardContent>
         </Card>
+        <Card>
+            <CardHeader>
+                <CardTitle>Sales</CardTitle>
+                <CardDescription>desc</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <p>Text</p>
+            </CardContent>
+        </Card>
+        <Card>
+            <CardHeader>
+                <CardTitle>Sales</CardTitle>
+                <CardDescription>desc</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <p>Text</p>
+            </CardContent>
+        </Card>
     </div>
 )
 }
