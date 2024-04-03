@@ -31,7 +31,7 @@ export default function HomePage() {
   return (
     <main className="space-y-12">
       <MedicationGridSection
-        title="Most Popular" 
+        title="Most Common Meds at Utibu Health" 
         medicationsFetcher={getMostPopularMedications}
       />
       <MedicationGridSection title="Newest" medicationsFetcher={getNewestMedications} />

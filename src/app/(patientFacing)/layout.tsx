@@ -2,7 +2,7 @@ import { Nav, NavLink } from "@/components/Nav";
 
 export const dynamic = "force-dynamic" //opt-out of the Next.js Data Cache for admin pages
 
-export default function AdminLayout({
+export default function Layout({
     children,
   }: Readonly<{
     children: React.ReactNode;
