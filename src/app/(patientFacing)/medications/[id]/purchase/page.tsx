@@ -10,10 +10,10 @@ export default async function PurchasePage({
 }: {
   params: { id: string }
 }) {
-  const medication = await db.medication.findUnique({ where: { id } })
+  const medication = await db.medication.findUnique({ where: { id: parseInt(id) } })
   if (medication == null) return notFound()
 
-  const paymentIntent = await stripe.paymentShillings.create({
+  const paymentIntent = await stripe.paymentIntents.create({
     amount: medication.priceInShillings,
     currency: "KSH",
     metadata: { medicationId: medication.id },
