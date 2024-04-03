@@ -20,13 +20,25 @@ async function isAuthenticated(req: NextRequest) {
     .toString()
     .split(":")
     
-  return (
-    username === process.env.ADMIN_USERNAME &&
-    (await isValidPassword(
+//   return (
+//     username === process.env.ADMIN_USERNAME &&
+//     (await isValidPassword(
+//       password,
+//       process.env.HASHED_ADMIN_PASSWORD as string
+//     ))
+//   )
+// }
+try {
+    const isValid = await isValidPassword(
       password,
       process.env.HASHED_ADMIN_PASSWORD as string
-    ))
-  )
+    );
+    
+    return username === process.env.ADMIN_USERNAME && isValid;
+  } catch (error) {
+    console.error("Error occurred during password validation:", error);
+    return false;
+  }
 }
 
 export const config = {
