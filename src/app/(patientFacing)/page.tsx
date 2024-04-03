@@ -34,7 +34,7 @@ export default function HomePage() {
         title="Most Common Meds at Utibu Health" 
         medicationsFetcher={getMostPopularMedications}
       />
-      <MedicationGridSection title="Newest" medicationsFetcher={getNewestMedications} />
+      <MedicationGridSection title="Latest Meds" medicationsFetcher={getNewestMedications} />
     </main>
   )
 }

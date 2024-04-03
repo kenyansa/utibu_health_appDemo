@@ -1,0 +1,32 @@
+import db from "@/db/db"
+import { notFound } from "next/navigation"
+import Stripe from "stripe"
+import { CheckoutForm } from "./_components/CheckoutForm"
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string)
+
+export default async function PurchasePage({
+  params: { id },
+}: {
+  params: { id: string }
+}) {
+  const medication = await db.medication.findUnique({ where: { id } })
+  if (medication == null) return notFound()
+
+  const paymentIntent = await stripe.paymentShillings.create({
+    amount: medication.priceInShillings,
+    currency: "KSH",
+    metadata: { medicationId: medication.id },
+  })
+
+  if (paymentIntent.client_secret == null) {
+    throw Error("Stripe failed to create payment intent")
+  }
+
+  return (
+    <CheckoutForm
+      medication={medication}
+      clientSecret={paymentIntent.client_secret}
+    />
+  )
+}
