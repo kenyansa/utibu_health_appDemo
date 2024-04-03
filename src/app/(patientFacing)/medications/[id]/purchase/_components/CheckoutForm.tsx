@@ -23,11 +23,11 @@ import Image from "next/image"
 import { FormEvent, useState } from "react"
 
 type CheckoutFormProps = {
-  product: {
+  medication: {
     id: string
     imagePath: string
     name: string
-    priceInCents: number
+    priceInShillings: number
     description: string
   }
   clientSecret: string
@@ -37,41 +37,41 @@ const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY as string
 )
 
-export function CheckoutForm({ product, clientSecret }: CheckoutFormProps) {
+export function CheckoutForm({ medication, clientSecret }: CheckoutFormProps) {
   return (
     <div className="max-w-5xl w-full mx-auto space-y-8">
       <div className="flex gap-4 items-center">
         <div className="aspect-video flex-shrink-0 w-1/3 relative">
           <Image
-            src={product.imagePath}
+            src={medication.imagePath}
             fill
-            alt={product.name}
+            alt={medication.name}
             className="object-cover"
           />
         </div>
         <div>
           <div className="text-lg">
-            {formatCurrency(product.priceInCents / 100)}
+            {formatCurrency(medication.priceInShillings / 100)}
           </div>
-          <h1 className="text-2xl font-bold">{product.name}</h1>
+          <h1 className="text-2xl font-bold">{medication.name}</h1>
           <div className="line-clamp-3 text-muted-foreground">
-            {product.description}
+            {medication.description}
           </div>
         </div>
       </div>
       <Elements options={{ clientSecret }} stripe={stripePromise}>
-        <Form priceInCents={product.priceInCents} productId={product.id} />
+        <Form priceInShillings={medication.priceInShillings} medicationId={medication.id} />
       </Elements>
     </div>
   )
 }
 
 function Form({
-  priceInCents,
-  productId,
+  priceInShillings,
+  medicationId,
 }: {
-  priceInCents: number
-  productId: string
+  priceInShillings: number
+  medicationId: string
 }) {
   const stripe = useStripe()
   const elements = useElements()
@@ -86,11 +86,11 @@ function Form({
 
     setIsLoading(true)
 
-    const orderExists = await userOrderExists(email, productId)
+    const orderExists = await userOrderExists(email, medicationId)
 
     if (orderExists) {
       setErrorMessage(
-        "You have already purchased this product. Try downloading it from the My Orders page"
+        "You have already purchased this medication. Try downloading it from the My Orders page"
       )
       setIsLoading(false)
       return
@@ -140,7 +140,7 @@ function Form({
           >
             {isLoading
               ? "Purchasing..."
-              : `Purchase - ${formatCurrency(priceInCents / 100)}`}
+              : `Purchase - ${formatCurrency(priceInShillings)}`}
           </Button>
         </CardFooter>
       </Card>
