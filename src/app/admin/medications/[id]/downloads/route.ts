@@ -17,11 +17,11 @@ export async function GET(
   const { size } = await fs.stat(medication.filePath)
   const file = await fs.readFile(medication.filePath)
   const extension = medication.filePath.split(".").pop()
-  const sanitizedFilename = medication.name.replace(/"/g, '\\"'); // Escape double quotes in filename
+//   const sanitizedFilename = medication.name.replace(/"/g, '\\"'); // Escape double quotes in filename
 
   return new NextResponse(file, {
     headers: {
-        "Content-Disposition": `attachment; filename="${sanitizedFilename}.${extension}"`, // Set the filename with proper escaping & determining filename and renaming+file extension
+        "Content-Disposition": `attachment; filename="${medication.name}.${extension}"`, // Set the filename with proper escaping & determining filename and renaming+file extension
         "Content-Length": size.toString(),
     },
   })
