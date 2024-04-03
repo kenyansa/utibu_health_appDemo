@@ -8,7 +8,7 @@ export async function GET(
   { params: { id } }: { params: { id: string } }
 ) {
   const medication = await db.medication.findUnique({
-    where: { id },
+    where: { id: parseInt(id)},
     select: { filePath: true, name: true },
   })
 
@@ -17,11 +17,12 @@ export async function GET(
   const { size } = await fs.stat(medication.filePath)
   const file = await fs.readFile(medication.filePath)
   const extension = medication.filePath.split(".").pop()
+  const sanitizedFilename = medication.name.replace(/"/g, '\\"'); // Escape double quotes in filename
 
   return new NextResponse(file, {
     headers: {
-      "Content-Disposition": `attachment; filename="${medication.name}.${extension}"`,
-      "Content-Length": size.toString(),
+        "Content-Disposition": `attachment; filename="${sanitizedFilename}.${extension}"`, // Set the filename with proper escaping & determining filename and renaming+file extension
+        "Content-Length": size.toString(),
     },
   })
 }
