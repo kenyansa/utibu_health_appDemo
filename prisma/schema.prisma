@@ -31,6 +31,7 @@ model Medication {
   filePath                String
   imagePath               String
   orders                  Order[]
+  downloadVerifications   DownloadVerification[]
   isAvailableForPurchase  Boolean   @default(true)
   createdAt               DateTime  @default(now())
   updatedAt               DateTime  @updatedAt
@@ -79,5 +80,13 @@ model LegacyDatabaseIntegration {
   timestamp     DateTime @default(now())
   status        String   // Could be 'success' or 'failure'
   errorMessage  String?  // Optional field for storing error messages
+}
+
+model DownloadVerification {
+  id            String   @id @default(uuid())
+  expiresAt     DateTime
+  createdAt     DateTime @default(now())
+  medicationId  Int
+  medication    Medication  @relation(fields: [medicationId], references: [id], onDelete: Cascade)
 }
 

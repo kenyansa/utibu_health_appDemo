@@ -51,7 +51,7 @@ export function CheckoutForm({ medication, clientSecret }: CheckoutFormProps) {
         </div>
         <div>
           <div className="text-lg">
-            {formatCurrency(medication.priceInShillings / 100)}
+            {formatCurrency(medication.priceInShillings)}
           </div>
           <h1 className="text-2xl font-bold">{medication.name}</h1>
           <div className="line-clamp-3 text-muted-foreground">
@@ -85,6 +85,8 @@ function Form({
     if (stripe == null || elements == null || email == null) return
 
     setIsLoading(true)
+
+    //check if order exists
 
     const orderExists = await userOrderExists(email, medicationId)
 
