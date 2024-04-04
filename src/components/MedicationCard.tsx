@@ -12,7 +12,7 @@ import Link from "next/link"
 import Image from "next/image"
 
 type MedicationCardProps = {
-  id: string
+  id: number
   name: string
   priceInShillings: number
   description: string
