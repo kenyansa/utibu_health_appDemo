@@ -24,7 +24,7 @@ import { FormEvent, useState } from "react"
 
 type CheckoutFormProps = {
   medication: {
-    id: string
+    id: number
     imagePath: string
     name: string
     priceInShillings: number
@@ -71,7 +71,7 @@ function Form({
   medicationId,
 }: {
   priceInShillings: number
-  medicationId: string
+  medicationId: number
 }) {
   const stripe = useStripe()
   const elements = useElements()

@@ -23,9 +23,12 @@ export default async function PurchasePage({
     throw Error("Stripe failed to create payment intent")
   }
 
+  const description = medication.description || "" //default value for the description property if it's null
+
   return (
     <CheckoutForm
-      medication={medication}
+      medication={{...medication,
+    description: description,}}
       clientSecret={paymentIntent.client_secret}
     />
   )
