@@ -30,8 +30,16 @@ export default function MedicationsPage(){
       </div>
     )
 }
-async function MedicationsSuspense(){
-    const medications = await getMedications()
-    return medications.map(medication => <MedicationCard key={medication.id} {...medication} />)
-
+async function MedicationsSuspense() {
+  const medications = await getMedications();
+  return medications.map(medication => (
+    <MedicationCard
+      key={medication.id}    
+      id={medication.id}
+      name={medication.name}
+      description={medication.description ?? "No description available"} // Provide a default value if description is null
+      priceInShillings={medication.priceInShillings}
+      imagePath={medication.imagePath}
+    />
+  ));
 }
