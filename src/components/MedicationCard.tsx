@@ -15,7 +15,7 @@ type MedicationCardProps = {
   id: number
   name: string
   priceInShillings: number
-  description: string
+  description: string | null
   imagePath: string
 }
 
