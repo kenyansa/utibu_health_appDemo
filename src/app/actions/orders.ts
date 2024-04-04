@@ -2,7 +2,7 @@
 
 import db from "@/db/db"
 
-export async function userOrderExists(email: string, medicationId: number) {
+export async function patientOrderExists(email: string, medicationId: number) {
     return (
       (await db.order.findFirst({
         where: { patient: { email }, 

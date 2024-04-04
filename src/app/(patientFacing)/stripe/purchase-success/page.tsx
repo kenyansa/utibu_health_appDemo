@@ -58,7 +58,7 @@ export default async function SuccessPage({
             {isSuccess ? (
               <a
                 href={`/medications/download/${await createDownloadVerification(
-                  medication.id.toString() 
+                  medication.id 
                 )}`} // Convert to string
               >
                 Download
@@ -80,10 +80,10 @@ export default async function SuccessPage({
 }
 }
 
-async function createDownloadVerification(medicationId: string) {
+async function createDownloadVerification(medicationId: number) {
     const verification = await db.downloadVerification.create({
       data: {
-        medicationId: Number(medicationId), // Ensure medicationId is a number
+        medicationId: (medicationId), 
         expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24),
       },
     });

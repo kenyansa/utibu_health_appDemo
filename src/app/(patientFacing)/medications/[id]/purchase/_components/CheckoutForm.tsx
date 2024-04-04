@@ -1,6 +1,6 @@
 "use client"
 
-import { userOrderExists } from "@/app/actions/orders"
+import { patientOrderExists } from "@/app/actions/orders"
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -88,7 +88,7 @@ function Form({
 
     //check if order exists
 
-    const orderExists = await userOrderExists(email, medicationId)
+    const orderExists = await patientOrderExists(email, medicationId)
 
     if (orderExists) {
       setErrorMessage(
