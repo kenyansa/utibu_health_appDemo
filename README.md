@@ -1,10 +1,22 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Utibu Health
+This is a health-focused app for delivering medications to patients without having to visit the doc all the time. <br>
+In Kenya and Africa, common diseases are a menace to the developing economies. These diseases include HIV, Diabetes, Hypertension, and Malaria. <br>
+With this app:
+1. Stable patients will be able take meds without visiting the doc
+2. The patients will also refill prescriptions at the pharmacy near them without having to book an appointment with a doctor
+3. The Utibu pharmacist will manage the med stock, sales, customer orders, invoices, and payments.
+4. Clients can order their meds remotely or next-door facility
+5. Clients can pay immediately or on delivery.
+6. Customers must be registered first before making orders on the system, and even generate a statement about their orders.
+
+## Notice!!
+The app is still under development, to be released soon.
 
 ## Getting Started
-
+Clone or fork the repo, then: <br>
 First, run the development server:
 
-```bash
+```
 npm run dev
 # or
 yarn dev
@@ -14,23 +26,9 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Technologies used for building
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Next.js for frontend and Prisma ORM for the db models. <br> Prisma comes with built-in capacity of working with various database tools e.g. PostgreSQL, MySQL, MongoDB, SQLite, CockroachDB, Planetscale, and MariaDB.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Deployment on Vercel
+The app has been deployed on Vercel as shown on this doc [Next.js deployment documentation](https://nextjs.org/docs/deployment).
