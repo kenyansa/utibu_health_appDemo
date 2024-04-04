@@ -82,6 +82,12 @@ async function MedicationSuspense({
   medicationsFetcher: () => Promise<Medication[]>
 }) {
   return (await medicationsFetcher()).map(medication => (
-    <MedicationCard key={medication.id} {...medication} />
+    <MedicationCard 
+    key={medication.id} 
+    id={medication.id}
+      name={medication.name}
+      description={medication.description ?? "No description available"} // Provide a default value if description is null
+      priceInShillings={medication.priceInShillings}
+      imagePath={medication.imagePath} />
   ))
 }
