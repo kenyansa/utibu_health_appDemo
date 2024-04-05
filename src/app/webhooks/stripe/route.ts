@@ -51,8 +51,8 @@ export async function POST(req: NextRequest) {
       subject: "Order Confirmation",
       react: (
         <PurchaseReceiptEmail
-          order={order},
-          medication={medication},
+          order={order}
+          medication={medication}
           downloadVerificationId={downloadVerification.id}
         />
       ),
