@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
 
   if (event.type === "charge.succeeded") {
     const charge = event.data.object
-    const medicationId = charge.metadata.medicationId
+    const medicationId = parseInt(charge.metadata.medicationId)
     const email = charge.billing_details.email
     const pricePaidInShillings = charge.amount
 
@@ -30,8 +30,7 @@ export async function POST(req: NextRequest) {
       orders: { create: { medicationId, pricePaidInShillings } },
     }
     const {
-      orders: [order],
-    } = await db.patient.upsert({
+      orders: [order]} = await db.patient.upsert({
       where: { email },
       create: patientFields,
       update: patientFields,
