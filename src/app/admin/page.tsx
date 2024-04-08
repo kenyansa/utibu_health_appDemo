@@ -1,4 +1,9 @@
-import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
+import {
+    Card, 
+    CardContent, 
+    CardDescription, 
+    CardHeader, 
+    CardTitle} from "@/components/ui/card";
 import db from "@/db/db";
 import { formatNumber, formatCurrency } from "@/lib/formatters";
 
