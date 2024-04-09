@@ -18,7 +18,7 @@ export async function emailOrderHistory(
     return { error: "Invalid email address" }
   }
 
-  const user = await db.patient.findUnique({
+  const patient = await db.patient.findUnique({
     where: { email: result.data },
     select: {
       email: true,
@@ -27,7 +27,7 @@ export async function emailOrderHistory(
           pricePaidInShillings: true,
           id: true,
           createdAt: true,
-          product: {
+          medications: {
             select: {
               id: true,
               name: true,
@@ -40,21 +40,21 @@ export async function emailOrderHistory(
     },
   })
 
-  if (user == null) {
+  if (patient == null) {
     return {
       message:
-        "Check your email to view your order history and download your products.",
+        "Check your email to view your order history and download your medications.",
     }
   }
 
-  const orders = user.orders.map(async order => {
+  const orders = patient.orders.map(async order => {
     return {
       ...order,
       downloadVerificationId: (
         await db.downloadVerification.create({
           data: {
             expiresAt: new Date(Date.now() + 24 * 1000 * 60 * 60),
-            productId: order.product.id,
+            medicationId: order.medication.id,
           },
         })
       ).id,
@@ -63,7 +63,7 @@ export async function emailOrderHistory(
 
   const data = await resend.emails.send({
     from: `Support <${process.env.SENDER_EMAIL}>`,
-    to: user.email,
+    to: patient.email,
     subject: "Order History",
     react: <OrderHistoryEmail orders={await Promise.all(orders)} />,
   })

@@ -34,7 +34,7 @@ import {
     order: {
       id: generateRandomNumber(8),
       createdAt: new Date(),
-      pricePaidInShillings: 10000,
+      pricePaidInShillings: 1000,
     },
     downloadVerificationId: crypto.randomUUID(),
   } satisfies PurchaseReceiptEmailProps

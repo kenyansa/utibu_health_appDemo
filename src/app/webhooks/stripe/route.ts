@@ -2,13 +2,13 @@ import db from "@/db/db"
 import { NextRequest, NextResponse } from "next/server"
 import Stripe from "stripe"
 import { Resend } from "resend"
-import PurchaseReceiptEmail from "@/email/PurchaseReceipt"
+import PurchaseReceiptEmail from "@/email/components/OrderInformation"
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string)
 const resend = new Resend(process.env.RESEND_API_KEY as string)
 
 export async function POST(req: NextRequest) {
-  const event = await stripe.webhooks.constructEvent(
+  const event = stripe.webhooks.constructEvent(
     await req.text(),
     req.headers.get("stripe-signature") as string,
     process.env.STRIPE_WEBHOOK_SECRET as string
@@ -30,7 +30,8 @@ export async function POST(req: NextRequest) {
       orders: { create: { medicationId, pricePaidInShillings } },
     }
     const {
-      orders: [order]} = await db.patient.upsert({
+      orders: [order],
+    } = await db.patient.upsert({
       where: { email },
       create: patientFields,
       update: patientFields,
@@ -50,9 +51,9 @@ export async function POST(req: NextRequest) {
       subject: "Order Confirmation",
       react: (
         <PurchaseReceiptEmail
-          order={order}
-          medication={medication}
-          downloadVerificationId={downloadVerification.id}
+            order={order}
+            medication={medication}
+            downloadVerificationId={downloadVerification.id}
         />
       ),
     })
