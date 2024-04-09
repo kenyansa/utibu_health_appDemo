@@ -25,37 +25,36 @@ import {
     }[]
   }
   
+// Sample orders for preview
+const previewOrders = [
+    {
+      id: 1,
+      createdAt: new Date(),
+      pricePaidInShillings: 1000,
+      downloadVerificationId: "someDownloadId1",
+      medication: {
+        name: "Medication name",
+        description: "Some description",
+        imagePath: "/medications/5aba7442-e4a5-4d2e-bfa7-5bd358cdad64-02 - What Is Next.js.jpg",
+      },
+    },
+    {
+      id: 2,
+      createdAt: new Date(),
+      pricePaidInShillings: 2000,
+      downloadVerificationId: "someDownloadId2",
+      medication: {
+        name: "Medication name 2",
+        description: "Some other desc",
+        imagePath: "/medications/db3035a5-e762-41b0-996f-d54ec730bc9c-01 - Course Introduction.jpg",
+      },
+    },
+  ];
+  
+  // Assign preview props
   OrderHistoryEmail.PreviewProps = {
-    orders: [
-      {
-        id: crypto.randomUUID(),
-        createdAt: new Date(),
-        pricePaidInShillings: 1000,
-        downloadVerificationId: crypto.randomUUID(),
-        medication: {
-          name: "Medication name",
-          description: "Some description",
-          imagePath:
-            "/medications/5aba7442-e4a5-4d2e-bfa7-5bd358cdad64-02 - What Is Next.js.jpg",
-        },
-      },
-      {
-        id: crypto.randomUUID(),
-        createdAt: new Date(),
-        pricePaidInShillings: 2000,
-        downloadVerificationId: crypto.randomUUID(),
-        medication: {
-          name: "Medication name 2",
-          description: "Some other desc",
-          imagePath:
-            "/medications/db3035a5-e762-41b0-996f-d54ec730bc9c-01 - Course Introduction.jpg",
-        },
-      },
-    ].map(order => ({
-        ...order,
-        id: Number(order.id) // Convert the id to a number
-      })),
-  } satisfies OrderHistoryEmailProps
+    orders: previewOrders,
+  } as OrderHistoryEmailProps;
   
   export default function OrderHistoryEmail({ orders }: OrderHistoryEmailProps) {
     return (
